@@ -1,0 +1,21 @@
+	for(int i=1,j=1;i<=n+1;i++){
+		// printf("i=%d\n",i);
+		while(j<=Q&&(i>n||q[j].v<a[i].a)){
+			for(int p:q[j].a)
+				if(f[p]&&!vis[x=find(p)]) s.erase(s.find(-sum[rt[x]])),vis[x]=1;
+			ans[q[j].id]=-*s.begin();
+			// printf("ans[%d]=%d\n",q[j].id,ans[q[j].id]);
+			for(int p:q[j].a)
+				if(f[p]&&vis[x=find(p)]) s.insert(-sum[rt[x]]),vis[x]=0;
+			j++;
+		}
+		if(i>n) break;
+		x=a[i].id,f[x]=x,modify(rt[x],1,lim,a[i].b,1),s.insert(-sum[rt[x]]);
+		// // printf("sum[%d]=%d\n",rt[x],sum[rt[x]]);
+		for(int y:v[x]) if(f[y]){
+			int u=find(x),v=find(y);
+			if(u==v) continue;
+			s.erase(s.find(-sum[rt[u]])),s.erase(s.find(-sum[rt[v]]));
+			f[v]=u,merge(rt[u],rt[v],1,lim),s.insert(-sum[rt[u]]);
+		}
+	}

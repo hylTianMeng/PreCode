@@ -1,0 +1,24 @@
+    for(int i=1,j=1;i<=n+1;i++){
+        // printf("i=%d\n",i);
+        int now=-1;
+        while(j<=Q&&(i==n+1||p[i].a>ques[j].V)){
+            for(int k:ques[j].s)
+                if(fa[k]&&!vis[now=Find(k)]) S.erase(S.find(-sum[root[now]])),vis[now]=1;
+            ans[ques[j].id]=-*S.begin();
+            for(int k:ques[j].s)
+                if(fa[k]&&vis[now=Find(k)]) S.insert(-sum[root[now]]),vis[now]=0;
+            j++;
+        }
+        if(i==n+1) break;
+        int id=p[i].id;fa[id]=id;
+        Add(root[id],1,limit,p[i].b,1);S.insert(-sum[root[id]]);
+        for(int to:e[id]){
+            if(!fa[to]) continue;
+            int u=Find(id),v=Find(to);if(u==v) continue;
+            S.erase(S.find(-sum[root[u]]));S.erase(S.find(-sum[root[v]]));
+            fa[v]=u;
+            Merge(root[u],root[v],1,limit);
+            S.insert(-sum[root[u]]);
+        }
+    }
+    for(int i=1;i<=Q;i++) printf("%lld\n",ans[i]);

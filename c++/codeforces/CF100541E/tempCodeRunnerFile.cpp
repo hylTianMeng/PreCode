@@ -1,0 +1,1 @@
+if(op==0) printf("%d\n",st.AskSum(l,r,val));

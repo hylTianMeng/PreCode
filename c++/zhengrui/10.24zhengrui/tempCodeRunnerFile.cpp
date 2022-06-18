@@ -1,0 +1,1 @@
+Rank=lower_bound(b+1,b+len+1,p[i].y)-b

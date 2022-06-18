@@ -1,0 +1,1 @@
+ind(rt,ID[i],0,n,i-a[i],i);
